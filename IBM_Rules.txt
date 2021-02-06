@@ -1,0 +1,56 @@
+on System#Boot do
+  Let,1,1
+  Let,3,0
+endon
+
+on Time#Initialized do
+  Let,1,1
+endon
+
+on Pulz do
+  pulse,4,1,400
+  if [var#1]=1
+    pulse,5,1,400
+  endif
+endon
+
+on Pauza do
+  Let,3,%eventvalue%
+endon
+
+on Posun do
+  let,2,%eventvalue%
+  timerSet,1,1  
+endon
+
+on Rules#Timer=1 do
+  if [var#2] > 0
+    Let,2,[var#2]-1
+    event,Pulz
+    timerSet,1,1
+  else
+    Let,1,1
+  endif
+endon
+
+on Clock#Time=All,**:** do
+  if [var#3]>0
+    Let,3,[var#3]-1
+  else
+    event,Pulz
+  endif
+endon
+
+on Clock#Time=All,**:49 do
+  Let,1,0
+endon
+
+on Clock#Time=All,**:59 do
+  Let,1,0
+  Let,2,15
+  timerSet,1,9
+endon
+
+on cudlik#state=0 do
+  event,pauza=720
+endon
