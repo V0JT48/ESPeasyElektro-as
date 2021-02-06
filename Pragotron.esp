@@ -1,0 +1,56 @@
+<!DOCTYPE html><meta name="viewport" content="width=width=device-width, initial-scale=1">
+<STYLE>
+* {font-family:sans-serif; font-size:14pt;}
+.button {margin:4px; padding:4px 16px; background-color:#07D; color:#FFF; text-decoration:none; border-radius:4px}
+</STYLE><HTML><HEAD><meta charset='utf-8'/><title>Pragotron</title></HEAD><BODY>
+<script type="text/javascript">
+function posun() {
+  var hh = document.getElementById('textbox_hh').value;
+  var mm = document.getElementById('textbox_mm').value;
+  hh = parseInt(hh);
+  mm = parseInt(mm);
+  if (isNaN(mm) || isNaN(hh)) {
+    return false;
+  }
+  var systime = "%systm_hm%".split(":");
+  hh = parseInt(systime[0]) - parseInt(hh);
+  mm = parseInt(systime[1]) - parseInt(mm);
+  mm = mm + 60 * hh;
+  if (mm < 0) {
+    mm  = mm + 24*60;
+  }
+  var i = document.createElement("img");
+  i.src = "?cmd=event,posun="+mm;
+  return false;
+}
+function pauza1h() {
+  var i = document.createElement("img");
+  i.src = "?cmd=event,pauza=60";
+  return false;
+}
+function posun1h() {
+  var i = document.createElement("img");
+  i.src = "?cmd=event,posun=60";
+  return false;
+}
+</script>
+Zapište zobrazený čas:
+<br>
+<table>
+<tr><td><input name="textbox_hh" type="text" maxlength="2" size="2" id="textbox_hh" class="searchField"/>
+<td>:
+<td><input name="textbox_mm" type="text" maxlength="2" size="2" id="textbox_mm" class="searchField"/>
+</table>
+<a class='button link' href="javascript:void(0);" onclick="javascript:posun();">Nastav: %systm_hm%</a>
+<br>
+<br>
+Letní čas:<a class='button link' href="javascript:void(0);" onclick="javascript:posun1h();">Posun 1h</a>
+<br>
+<br>
+Zimní čas:<a class='button link' href="javascript:void(0);" onclick="javascript:pauza1h();">Pauza 1h</a>
+<br>
+<br>
+Aktivní pauza: %v3% minut
+<br>
+Teplota sušárna: [temp#Temperature] °C
+</BODY></HTML>
