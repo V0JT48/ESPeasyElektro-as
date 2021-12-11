@@ -10,10 +10,12 @@ endon
 on Pulz do
   if [var#1]=0
     Let,1,1
-    pulse,4,0,200
+    pulse,4,0,200 // rele
+    // pulse,4,1,200 // H mustek
   elseif [var#1]=1
     Let,1,0
-    pulse,5,0,200
+    pulse,5,0,200 // rele
+    // pulse,5,1,200 // H mustek
   endif
 endon
 
