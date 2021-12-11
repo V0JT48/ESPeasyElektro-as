@@ -1,0 +1,83 @@
+on System#Boot do
+  Let,4,0 //date Rules2
+  Let,5,0 //date_pauza
+endon
+
+on Pulz_D do
+  if [var#4]=0
+    Let,4,1
+    pulse,12,0,200
+  elseif [var#4]=1
+    Let,4,0
+    pulse,13,0,200
+  endif
+endon
+
+on Pauza_D do
+  Let,5,%eventvalue%
+endon
+
+on Posun_D do
+  if %eventvalue% < 1440
+    looptimerset_ms,2,500,%eventvalue%
+  endif
+endon
+
+on Rules#Timer=2 do
+  event,Pulz_D
+endon
+
+on Clock#Time=All,00:00 do
+  if [var#5]>0
+    Let,5,[var#5]-1
+  elseif %sysyear% < 2000
+    Let,4,3 // NTP not set
+  elseif %sysday% = 1
+    if %sysmonth% = 1
+      Let,4,0
+      event,Posun_D=750 //30+720 13->01
+    elseif %sysmonth% = 2
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 3
+      Let,4,%sysyear%%4
+      if [var#4] = 0
+        Let,4,0
+        event,Posun_D=32
+      else
+        Let,4,1
+        event,Posun_D=33
+      endif
+    elseif %sysmonth% = 4
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 5
+      Let,4,1
+      event,Posun_D=31
+    elseif %sysmonth% = 6
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 7
+      Let,4,1
+      event,Posun_D=31
+    elseif %sysmonth% = 8
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 9
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 10
+      Let,4,1
+      event,Posun_D=31
+    elseif %sysmonth% = 11
+      Let,4,0
+      event,Posun_D=30
+    elseif %sysmonth% = 12
+      Let,4,1
+      event,Posun_D=31
+    endif
+  else
+    Let,4,%sysday%%2
+    event,Pulz_D
+  endif
+endon
