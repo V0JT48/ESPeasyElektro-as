@@ -51,6 +51,4 @@ Zimní čas:<a class='button link' href="javascript:void(0);" onclick="javascrip
 <br>
 <br>
 Aktivní pauza: %v3% minut
-<br>
-Teplota sušárna: [temp#Temperature] °C
 </BODY></HTML>
