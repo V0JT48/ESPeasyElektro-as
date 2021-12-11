@@ -8,5 +8,13 @@
  - 5-12V power supply, 500mA is enough for multiple clocks
  - optional DC/DC UPS module with lithium accumulator, example: https://mysku.ru/blog/taobao/72616.html www.aliexpress.com/item/4000114509953.html
 
+## Software and config
+ - ESPEasy https://github.com/letscontrolit/ESPEasy/releases
+ - under Tools - Advanced enable NTP and Rules, set correct time zone
+ - Rules - paste content of Pragotron_Rules.txt or IBM version, code for date should go to Rules Set 2
+ - modify GPIO pins if needed, by default 4 and 5 are used for clock in Pulz event, 12 and 13 for date in Pulz_D event
+ - Optional: upload Pragotron.esp to flash, Tools - File browser, it adds simple gui to correct time and manualy adjust for day light saving, access via http://ESP-IP/pragotron.esp
+
+
 ## Diagram
 ![Diagram](https://raw.github.com/V0JT48/ESPeasyElektrocas/master/ESPEasy.png)
